@@ -129384,7 +129384,7 @@ async function run() {
         });
         // We need to fetch all artifacts to get metadata for the specified IDs
         const listArtifactResponse = await lib_artifact.listArtifacts({
-            latest: true,
+            // latest: true,
             ...options
         });
 	console.log("artifactIds:", artifactIds.length, artifactIds);
