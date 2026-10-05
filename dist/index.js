@@ -129386,12 +129386,13 @@ async function run() {
             latest: true,
             ...options
         });
+	console.log("listArtifactResponse.artifacts:", listArtifactResponse.artifacts);
         artifacts = listArtifactResponse.artifacts.filter(artifact => artifactIds.includes(artifact.database_id));
         if (artifacts.length === 0) {
             throw new Error(`None of the provided artifact IDs were found`);
         }
         if (artifacts.length < artifactIds.length) {
-            const foundIds = artifacts.map(a => a.id);
+            const foundIds = artifacts.map(a => a.database_id);
             const missingIds = artifactIds.filter(id => !foundIds.includes(id));
             warning(`Could not find the following artifact IDs: ${missingIds.join(', ')}`);
         }
