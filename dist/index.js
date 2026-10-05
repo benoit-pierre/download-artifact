@@ -129374,6 +129374,7 @@ async function run() {
         }
         core_debug(`Parsed artifact IDs: ${JSON.stringify(artifactIdList)}`);
         // Parse the artifact IDs
+	console.log("artifactIdList:", artifactIdList);
         artifactIds = artifactIdList.map(id => {
             const numericId = parseInt(id, 10);
             if (isNaN(numericId)) {
@@ -129386,13 +129387,15 @@ async function run() {
             latest: true,
             ...options
         });
-	console.log("listArtifactResponse.artifacts:", listArtifactResponse.artifacts);
-        artifacts = listArtifactResponse.artifacts.filter(artifact => artifactIds.includes(artifact.database_id));
+	console.log("artifactIds:", artifactIds.length, artifactIds);
+	console.log("listArtifactResponse.artifacts:", listArtifactResponse.artifacts.length, listArtifactResponse.artifacts);
+        artifacts = listArtifactResponse.artifacts.filter(artifact => artifactIds.includes(artifact.id));
+	console.log("artifact:", artifacts.length, artifacts);
         if (artifacts.length === 0) {
             throw new Error(`None of the provided artifact IDs were found`);
         }
         if (artifacts.length < artifactIds.length) {
-            const foundIds = artifacts.map(a => a.database_id);
+            const foundIds = artifacts.map(a => a.id);
             const missingIds = artifactIds.filter(id => !foundIds.includes(id));
             warning(`Could not find the following artifact IDs: ${missingIds.join(', ')}`);
         }
