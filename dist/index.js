@@ -129386,7 +129386,7 @@ async function run() {
             latest: true,
             ...options
         });
-        artifacts = listArtifactResponse.artifacts.filter(artifact => artifactIds.includes(artifact.id));
+        artifacts = listArtifactResponse.artifacts.filter(artifact => artifactIds.includes(artifact.database_id));
         if (artifacts.length === 0) {
             throw new Error(`None of the provided artifact IDs were found`);
         }
